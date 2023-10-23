@@ -34,16 +34,21 @@ class MainActivity : AppCompatActivity() {
         RetrofitClient.init(baseUrlP = "https://www.wanandroid.com/")
 
         findViewById<Button>(R.id.test1).onClick {
-            RetrofitClient.getOrCreateService<ApiService>().requestHotKey().applySchedulers().subscribe ({
-                MLog.d("requestHotKey --> ${it.data}")
-                showToast("requestHotKey --> ${it.data}")
-            },object:BaseErrorConsumer(){
-                override fun onApiExceptionCall(apiException: ApiException) {
-                }
+            RetrofitClient.getOrCreateService<ApiService>().requestHotKey().applySchedulers()
+                .subscribe({
+                    MLog.d("restful requestHotKey --> ${it.data}")
+                    showToast("requestHotKey --> ${it.data}")
+                }, object : BaseErrorConsumer(mBlock = { errCode, errMsg ->
+                    MLog.d("restful mBlock errCode --> $errCode errMsg --> $errMsg")
+                }) {
+                    override fun onApiExceptionCall(apiException: ApiException) {
+                        MLog.d("restful onApiExceptionCall errCode --> ${apiException.errorCode} errMsg --> ${apiException.errorMessage}")
+                    }
 
-                override fun logError(e: Throwable) {
-                }
-            })
+                    override fun logError(e: Throwable) {
+                        MLog.d("restful logError  --> ${e.message}")
+                    }
+                })
         }
 
     }

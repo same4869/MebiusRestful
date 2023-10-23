@@ -6,4 +6,4 @@ package com.pokemon.mebius.restful.exception
  * @CreateDate:     2020/8/31
  */
 
-class ApiException(val errorCode: Int,val errorMessage: String = "",val passErrorCode :Int= 0) : RuntimeException(errorMessage)
+class ApiException(val errorCode: Int,val errorMessage: String = "") : RuntimeException(errorMessage)

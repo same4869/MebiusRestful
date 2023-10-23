@@ -17,55 +17,57 @@ import java.net.SocketTimeoutException
  * @CreateDate:     2021/1/13
  */
 
-abstract class BaseErrorConsumer(private val mBlock: (errCode: Int, errMsg: String) -> Unit = { i: Int, s: String -> }) :
+open class BaseErrorConsumer(private val mBlock: (errCode: Int, errMsg: String) -> Unit = { i: Int, s: String -> }) :
     Consumer<Throwable> {
 
     companion object {
         const val ERROR_NET = -999
     }
 
-    abstract fun onApiExceptionCall(apiException: ApiException)
+    open fun onApiExceptionCall(apiException: ApiException) {}
 
-    abstract fun logError(e: Throwable)
+    open fun logError(e: Throwable) {}
 
     override fun accept(e: Throwable) {
         if (!isNetworkAvailable(APPLICATION)) {
-            MLog.d("no net")
-            mBlock(ERROR_NET, "")
-            showToast(getResString(R.string.net_error_message_toast))
+            MLog.d("restful no net")
+            mBlock(ERROR_NET, "no net")
+//            showToast(getResString(R.string.net_error_message_toast))
             return
         }
         when (e) {
             is HttpException -> {// We had non-2XX http error
-                MLog.d("HttpException")
-                showToast(getResString(R.string.net_error_message_toast))
-                mBlock(ERROR_NET, "")
+                MLog.d("restful HttpException")
+//                showToast(getResString(R.string.net_error_message_toast))
+                mBlock(ERROR_NET, "HttpException")
                 logError(e)
             }
 
             is SocketTimeoutException -> {
-                MLog.d("SocketTimeoutException")
-                mBlock(ERROR_NET, "")
+                MLog.d("restful SocketTimeoutException")
+                mBlock(ERROR_NET, "SocketTimeoutException")
                 logError(e)
-                showToast(getResString(R.string.net_error_message_toast))
+//                showToast(getResString(R.string.net_error_message_toast))
             }
 
             is IOException -> {// A network or conversion error happened
-                MLog.d("IOException")
-                mBlock(ERROR_NET, "")
+                MLog.d("restful IOException")
+                mBlock(ERROR_NET, "IOException")
                 logError(e)
-                showToast(getResString(R.string.net_error_message_toast))
+//                showToast(getResString(R.string.net_error_message_toast))
             }
 
             is ApiException -> {
-                MLog.d("ApiException : " + e.errorCode)
+                MLog.d("restful ApiException : " + e.errorCode)
+                mBlock(ERROR_NET, "ApiException")
                 onApiExceptionCall(e)
             }
 
             else -> {
                 logError(e)
                 MLog.d(getResString(R.string.net_unknown_error_message_toast))
-                showToast(getResString(R.string.net_unknown_error_message_toast))
+                mBlock(ERROR_NET, "unknown")
+//                showToast(getResString(R.string.net_unknown_error_message_toast))
             }
         }
     }
