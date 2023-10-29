@@ -11,8 +11,8 @@ object Dependencies {
     const val retrofit_adapter_rx = "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
     const val rx_android = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
-    const val sora_commlib = "com.pokemon.mebius:commlib:0.0.1"
-    const val sora_log = "com.pokemon.mebius:log:0.0.2"
+    const val mebius_log = "com.github.same4869:MebiusLog:0.0.1"
+    const val mebius_commlib = "com.github.same4869:MebiusCommlib:0.0.1"
 }
 
 object SoraRestful {
