@@ -28,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
 
     //发布jitpack用的，私有仓库用自己的那个插件
@@ -58,8 +58,8 @@ dependencies {
     api(com.pokemon.mebius.framework.buildsrc.Dependencies.retrofit)
 //    implementation(com.pokemon.mebius.framework.buildsrc.Dependencies.sora_log)
 //    implementation(com.pokemon.mebius.framework.buildsrc.Dependencies.sora_commlib)
-    api("com.github.same4869:MebiusCommlib:0.0.1")
-    api("com.github.same4869:MebiusLog:0.0.2")
+    api("com.github.same4869:MebiusCommlib:0.0.2")
+    api("com.github.same4869:MebiusLog:0.0.4")
 }
 
 

@@ -15,6 +15,7 @@ import com.pokemon.mebius.restful.exception.ApiException
 import com.pokemon.mebius.restful.exception.BaseErrorConsumer
 import com.pokemon.mebius.restful.utils.applySchedulers
 import java.lang.reflect.Type
+import com.pokemon.mebius.restful.demo.R
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
